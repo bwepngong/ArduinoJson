@@ -5,6 +5,11 @@
 #pragma once
 
 #include "JsonWriter.hpp"
+#include "StaticStringBuilder.hpp"
+
+#if ARDUINOJSON_ENABLE_STD_STREAM
+#include "StreamPrintAdapter.hpp"
+#endif
 
 namespace ArduinoJson {
 
@@ -28,5 +33,43 @@ class JsonSerializer {
   static void serialize(const JsonObjectSubscript<TKey> &, Writer &);
   static void serialize(const JsonVariant &, Writer &);
 };
+}  // namespace Internals
+
+template <typename TSource, typename TDestination>
+typename Internals::EnableIf<!Internals::StringTraits<TDestination>::has_append,
+                             size_t>::type
+serializeJson(const TSource &source, TDestination &destination) {
+  Internals::JsonWriter<TDestination> writer(destination);
+  Internals::JsonSerializer<Internals::JsonWriter<TDestination> >::serialize(
+      source, writer);
+  return writer.bytesWritten();
 }
+
+#if ARDUINOJSON_ENABLE_STD_STREAM
+template <typename TSource>
+std::ostream &serializeJson(const TSource &source, std::ostream &os) {
+  Internals::StreamPrintAdapter adapter(os);
+  serializeJson(source, adapter);
+  return os;
 }
+#endif
+
+template <typename TSource>
+size_t serializeJson(const TSource &source, char *buffer, size_t bufferSize) {
+  Internals::StaticStringBuilder sb(buffer, bufferSize);
+  return serializeJson(source, sb);
+}
+
+template <typename TSource, size_t N>
+size_t serializeJson(const TSource &source, char (&buffer)[N]) {
+  return serializeJson(source, buffer, N);
+}
+
+template <typename TSource, typename TDestination>
+typename Internals::EnableIf<Internals::StringTraits<TDestination>::has_append,
+                             size_t>::type
+serializeJson(const TSource &source, TDestination &str) {
+  Internals::DynamicStringBuilder<TDestination> sb(str);
+  return serializeJson(source, sb);
+}
+}  // namespace ArduinoJson

@@ -14,7 +14,7 @@ void check(std::string originalJson) {
 
   std::string finalJson;
   deserializeJson(obj, originalJson);
-  obj.printTo(finalJson);
+  serializeJson(obj, finalJson);
 
   REQUIRE(originalJson == finalJson);
 }

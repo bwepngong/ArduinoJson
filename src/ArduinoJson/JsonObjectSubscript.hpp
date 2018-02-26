@@ -99,11 +99,12 @@ class JsonObjectSubscript
 template <typename TStringRef>
 inline std::ostream& operator<<(std::ostream& os,
                                 const JsonObjectSubscript<TStringRef>& source) {
-  return source.printTo(os);
+  serializeJson(source, os);
+  return os;
 }
 #endif
-}
-}
+}  // namespace Internals
+}  // namespace ArduinoJson
 
 #ifdef _MSC_VER
 #pragma warning(pop)

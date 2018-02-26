@@ -27,7 +27,6 @@ namespace Internals {
 // and JsonObject.
 template <typename T>
 class JsonPrintable {
- public:
   template <typename Print>
   typename EnableIf<!StringTraits<Print>::has_append, size_t>::type printTo(
       Print &print) const {
@@ -61,6 +60,7 @@ class JsonPrintable {
     return printTo(sb);
   }
 
+ public:
   template <typename Print>
   size_t prettyPrintTo(IndentedPrint<Print> &print) const {
     Prettyfier<Print> p(print);
@@ -101,7 +101,6 @@ class JsonPrintable {
     return prettyPrintTo(dp);
   }
 
- private:
   const T &downcast() const {
     return *static_cast<const T *>(this);
   }
@@ -110,8 +109,9 @@ class JsonPrintable {
 #if ARDUINOJSON_ENABLE_STD_STREAM
 template <typename T>
 inline std::ostream &operator<<(std::ostream &os, const JsonPrintable<T> &v) {
-  return v.printTo(os);
+  serializeJson(v.downcast(), os);
+  return os;
 }
 #endif
-}
-}
+}  // namespace Internals
+}  // namespace ArduinoJson

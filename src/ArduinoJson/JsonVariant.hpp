@@ -194,7 +194,7 @@ class JsonVariant : public Internals::JsonVariantBase<JsonVariant> {
     const char *cstr = variantAsString();
     if (cstr) return T(cstr);
     T s;
-    printTo(s);
+    serializeJson(*this, s);
     return s;
   }
   //

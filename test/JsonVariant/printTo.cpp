@@ -8,7 +8,7 @@
 
 void check(JsonVariant variant, const std::string &expected) {
   char buffer[256] = "";
-  size_t returnValue = variant.printTo(buffer, sizeof(buffer));
+  size_t returnValue = serializeJson(variant, buffer, sizeof(buffer));
   REQUIRE(expected == buffer);
   REQUIRE(expected.size() == returnValue);
 }

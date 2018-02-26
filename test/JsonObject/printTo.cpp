@@ -8,7 +8,7 @@
 
 void check(const JsonObject &obj, const std::string &expected) {
   char actual[256];
-  size_t actualLen = obj.printTo(actual);
+  size_t actualLen = serializeJson(obj, actual);
   size_t measuredLen = obj.measureLength();
 
   REQUIRE(expected == actual);

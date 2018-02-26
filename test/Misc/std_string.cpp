@@ -53,7 +53,7 @@ TEST_CASE("std::string") {
       array.add(4);
       array.add(2);
       std::string json;
-      array.printTo(json);
+      serializeJson(array, json);
       REQUIRE(std::string("[4,2]") == json);
     }
 
@@ -156,7 +156,7 @@ TEST_CASE("std::string") {
       char json[64];
       object.createNestedObject(key);
       eraseString(key);
-      object.printTo(json, sizeof(json));
+      serializeJson(object, json, sizeof(json));
       REQUIRE(std::string("{\"key\":{}}") == json);
     }
 
@@ -165,7 +165,7 @@ TEST_CASE("std::string") {
       char json[64];
       object.createNestedArray(key);
       eraseString(key);
-      object.printTo(json, sizeof(json));
+      serializeJson(object, json, sizeof(json));
       REQUIRE(std::string("{\"key\":[]}") == json);
     }
 
@@ -200,7 +200,7 @@ TEST_CASE("std::string") {
     SECTION("printTo") {
       object["key"] = "value";
       std::string json;
-      object.printTo(json);
+      serializeJson(object, json);
       REQUIRE(std::string("{\"key\":\"value\"}") == json);
     }
 
