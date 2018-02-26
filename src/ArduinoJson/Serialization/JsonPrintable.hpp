@@ -95,12 +95,12 @@ class JsonPrintable {
     return printTo(dp);
   }
 
- public:
   size_t measurePrettyLength() const {
     DummyPrint dp;
     return prettyPrintTo(dp);
   }
 
+ public:
   const T &downcast() const {
     return *static_cast<const T *>(this);
   }

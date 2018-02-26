@@ -117,4 +117,10 @@ size_t measureJson(const TSource &source) {
   return serializeJson(source, dp);
 }
 
+template <typename TSource>
+size_t measureJsonPretty(const TSource &source) {
+  Internals::DummyPrint dp;
+  return serializeJsonPretty(source, dp);
+}
+
 }  // namespace ArduinoJson

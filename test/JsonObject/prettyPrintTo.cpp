@@ -10,7 +10,7 @@ void check(const JsonObject &obj, const std::string expected) {
   char json[256];
 
   size_t actualLen = serializeJsonPretty(obj, json);
-  size_t measuredLen = obj.measurePrettyLength();
+  size_t measuredLen = measureJsonPretty(obj);
 
   REQUIRE(json == expected);
   REQUIRE(expected.size() == actualLen);
