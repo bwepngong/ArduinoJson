@@ -7,7 +7,7 @@
 
 static void check(JsonArray& array, std::string expected) {
   std::string actual;
-  size_t actualLen = array.prettyPrintTo(actual);
+  size_t actualLen = serializeJsonPretty(array, actual);
   size_t measuredLen = array.measurePrettyLength();
   CHECK(actualLen == expected.size());
   CHECK(measuredLen == expected.size());

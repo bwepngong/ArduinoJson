@@ -4,7 +4,9 @@
 
 #pragma once
 
+#include "IndentedPrint.hpp"
 #include "JsonWriter.hpp"
+#include "Prettyfier.hpp"
 #include "StaticStringBuilder.hpp"
 
 #if ARDUINOJSON_ENABLE_STD_STREAM
@@ -71,5 +73,40 @@ typename Internals::EnableIf<Internals::StringTraits<TDestination>::has_append,
 serializeJson(const TSource &source, TDestination &str) {
   Internals::DynamicStringBuilder<TDestination> sb(str);
   return serializeJson(source, sb);
+}
+
+template <typename TSource, typename TDestination>
+size_t serializeJsonPretty(const TSource &source,
+                           Internals::IndentedPrint<TDestination> &print) {
+  Internals::Prettyfier<TDestination> p(print);
+  return serializeJson(source, p);
+}
+
+template <typename TSource>
+size_t serializeJsonPretty(const TSource &source, char *buffer,
+                           size_t bufferSize) {
+  Internals::StaticStringBuilder sb(buffer, bufferSize);
+  return serializeJsonPretty(source, sb);
+}
+
+template <typename TSource, size_t N>
+size_t serializeJsonPretty(const TSource &source, char (&buffer)[N]) {
+  return serializeJsonPretty(source, buffer, N);
+}
+
+template <typename TSource, typename TDestination>
+typename Internals::EnableIf<!Internals::StringTraits<TDestination>::has_append,
+                             size_t>::type
+serializeJsonPretty(const TSource &source, TDestination &print) {
+  Internals::IndentedPrint<TDestination> indentedPrint(print);
+  return serializeJsonPretty(source, indentedPrint);
+}
+
+template <typename TSource, typename TDestination>
+typename Internals::EnableIf<Internals::StringTraits<TDestination>::has_append,
+                             size_t>::type
+serializeJsonPretty(const TSource &source, TDestination &str) {
+  Internals::DynamicStringBuilder<TDestination> sb(str);
+  return serializeJsonPretty(source, sb);
 }
 }  // namespace ArduinoJson

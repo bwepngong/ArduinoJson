@@ -60,7 +60,6 @@ class JsonPrintable {
     return printTo(sb);
   }
 
- public:
   template <typename Print>
   size_t prettyPrintTo(IndentedPrint<Print> &print) const {
     Prettyfier<Print> p(print);
@@ -91,6 +90,7 @@ class JsonPrintable {
     return prettyPrintTo(sb);
   }
 
+ public:
   size_t measureLength() const {
     DummyPrint dp;
     return printTo(dp);

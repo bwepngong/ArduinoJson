@@ -61,7 +61,7 @@ TEST_CASE("std::string") {
       array.add(4);
       array.add(2);
       std::string json;
-      array.prettyPrintTo(json);
+      serializeJsonPretty(array, json);
       REQUIRE(std::string("[\r\n  4,\r\n  2\r\n]") == json);
     }
   }
@@ -207,7 +207,7 @@ TEST_CASE("std::string") {
     SECTION("prettyPrintTo") {
       object["key"] = "value";
       std::string json;
-      object.prettyPrintTo(json);
+      serializeJsonPretty(object, json);
       REQUIRE(std::string("{\r\n  \"key\": \"value\"\r\n}") == json);
     }
 
