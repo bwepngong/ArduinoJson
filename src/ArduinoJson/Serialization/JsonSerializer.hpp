@@ -5,6 +5,7 @@
 #pragma once
 
 #include "DummyPrint.hpp"
+#include "DynamicStringBuilder.hpp"
 #include "IndentedPrint.hpp"
 #include "JsonWriter.hpp"
 #include "Prettyfier.hpp"
