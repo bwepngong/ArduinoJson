@@ -90,12 +90,12 @@ class JsonPrintable {
     return prettyPrintTo(sb);
   }
 
- public:
   size_t measureLength() const {
     DummyPrint dp;
     return printTo(dp);
   }
 
+ public:
   size_t measurePrettyLength() const {
     DummyPrint dp;
     return prettyPrintTo(dp);

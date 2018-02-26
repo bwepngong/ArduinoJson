@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "DummyPrint.hpp"
 #include "IndentedPrint.hpp"
 #include "JsonWriter.hpp"
 #include "Prettyfier.hpp"
@@ -109,4 +110,11 @@ serializeJsonPretty(const TSource &source, TDestination &str) {
   Internals::DynamicStringBuilder<TDestination> sb(str);
   return serializeJsonPretty(source, sb);
 }
+
+template <typename TSource>
+size_t measureJson(const TSource &source) {
+  Internals::DummyPrint dp;
+  return serializeJson(source, dp);
+}
+
 }  // namespace ArduinoJson

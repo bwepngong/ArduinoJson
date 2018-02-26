@@ -10,7 +10,7 @@ static void check(JsonArray &array, std::string expected) {
   size_t actualLen = serializeJson(array, actual);
   REQUIRE(expected == actual);
   REQUIRE(actualLen == expected.size());
-  size_t measuredLen = array.measureLength();
+  size_t measuredLen = measureJson(array);
   REQUIRE(measuredLen == expected.size());
 }
 
