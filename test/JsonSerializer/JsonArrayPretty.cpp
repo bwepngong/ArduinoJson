@@ -14,7 +14,7 @@ static void check(JsonArray& array, std::string expected) {
   REQUIRE(expected == actual);
 }
 
-TEST_CASE("JsonArray::prettyPrintTo()") {
+TEST_CASE("serializeJsonPretty(JsonArray)") {
   DynamicJsonArray array;
 
   SECTION("Empty") {

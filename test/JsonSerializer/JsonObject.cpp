@@ -15,7 +15,8 @@ void check(const JsonObject &obj, const std::string &expected) {
   REQUIRE(expected.size() == actualLen);
   REQUIRE(expected.size() == measuredLen);
 }
-TEST_CASE("JsonObject::printTo()") {
+
+TEST_CASE("serializeJson(JsonObject)") {
   DynamicJsonObject obj;
 
   SECTION("EmptyObject") {

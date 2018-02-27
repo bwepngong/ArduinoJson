@@ -14,7 +14,7 @@ static void check(JsonArray &array, std::string expected) {
   REQUIRE(measuredLen == expected.size());
 }
 
-TEST_CASE("JsonArray::printTo()") {
+TEST_CASE("serializeJson(JsonArray)") {
   StaticJsonArray<JSON_ARRAY_SIZE(2)> array;
 
   SECTION("Empty") {

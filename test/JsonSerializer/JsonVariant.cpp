@@ -13,7 +13,7 @@ void check(JsonVariant variant, const std::string &expected) {
   REQUIRE(expected.size() == returnValue);
 }
 
-TEST_CASE("JsonVariant::printTo()") {
+TEST_CASE("serializeJson(JsonVariant)") {
   SECTION("Empty") {
     check(JsonVariant(), "");
   }

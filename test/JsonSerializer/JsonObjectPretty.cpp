@@ -17,7 +17,7 @@ void check(const JsonObject &obj, const std::string expected) {
   REQUIRE(expected.size() == measuredLen);
 }
 
-TEST_CASE("JsonObject::prettyPrintTo()") {
+TEST_CASE("serializeJsonPretty(JsonObject)") {
   DynamicJsonObject obj;
 
   SECTION("EmptyObject") {

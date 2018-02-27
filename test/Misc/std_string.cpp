@@ -49,7 +49,7 @@ TEST_CASE("std::string") {
       REQUIRE(std::string("world") == array[0]);
     }
 
-    SECTION("printTo()") {
+    SECTION("serializeJson()") {
       array.add(4);
       array.add(2);
       std::string json;
@@ -57,7 +57,7 @@ TEST_CASE("std::string") {
       REQUIRE(std::string("[4,2]") == json);
     }
 
-    SECTION("prettyPrintTo") {
+    SECTION("serializeJsonPretty()") {
       array.add(4);
       array.add(2);
       std::string json;
@@ -69,7 +69,7 @@ TEST_CASE("std::string") {
   SECTION("JsonObject") {
     DynamicJsonObject object;
 
-    SECTION("deserializeJson") {
+    SECTION("deserializeJson()") {
       std::string json("{\"hello\":\"world\"}");
 
       bool success = deserializeJson(object, json);
@@ -197,14 +197,14 @@ TEST_CASE("std::string") {
       REQUIRE(std::string("world") == object["hello"]);
     }
 
-    SECTION("printTo") {
+    SECTION("serializeJson()") {
       object["key"] = "value";
       std::string json;
       serializeJson(object, json);
       REQUIRE(std::string("{\"key\":\"value\"}") == json);
     }
 
-    SECTION("prettyPrintTo") {
+    SECTION("serializeJsonPretty()") {
       object["key"] = "value";
       std::string json;
       serializeJsonPretty(object, json);
