@@ -124,4 +124,35 @@ size_t measureJsonPretty(const TSource &source) {
   return serializeJsonPretty(source, dp);
 }
 
+#if ARDUINOJSON_ENABLE_STD_STREAM
+inline std::ostream &operator<<(std::ostream &os, const JsonArray &source) {
+  serializeJson(source, os);
+  return os;
+}
+inline std::ostream &operator<<(std::ostream &os, const JsonObject &source) {
+  serializeJson(source, os);
+  return os;
+}
+inline std::ostream &operator<<(std::ostream &os, const JsonVariant &source) {
+  serializeJson(source, os);
+  return os;
+}
+
+namespace Internals {
+inline std::ostream &operator<<(std::ostream &os,
+                                const JsonArraySubscript &source) {
+  serializeJson(source, os);
+  return os;
+}
+
+template <typename TKey>
+inline std::ostream &operator<<(std::ostream &os,
+                                const JsonObjectSubscript<TKey> &source) {
+  serializeJson(source, os);
+  return os;
+}
+}  // namespace Internals
+
+#endif
+
 }  // namespace ArduinoJson

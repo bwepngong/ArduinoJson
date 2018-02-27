@@ -21,13 +21,5 @@ class JsonPrintable {
     return *static_cast<const T *>(this);
   }
 };
-
-#if ARDUINOJSON_ENABLE_STD_STREAM
-template <typename T>
-inline std::ostream &operator<<(std::ostream &os, const JsonPrintable<T> &v) {
-  serializeJson(v.downcast(), os);
-  return os;
-}
-#endif
 }  // namespace Internals
 }  // namespace ArduinoJson

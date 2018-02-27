@@ -98,14 +98,6 @@ inline const JsonArraySubscript JsonVariantSubscripts<TImpl>::operator[](
     size_t index) const {
   return impl()->template as<JsonArray>()[index];
 }
-
-#if ARDUINOJSON_ENABLE_STD_STREAM
-inline std::ostream& operator<<(std::ostream& os,
-                                const JsonArraySubscript& source) {
-  serializeJson(source, os);
-  return os;
-}
-#endif
 }  // namespace Internals
 
 inline Internals::JsonArraySubscript JsonArray::operator[](size_t index) {
